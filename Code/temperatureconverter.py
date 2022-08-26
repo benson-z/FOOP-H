@@ -1,10 +1,14 @@
+#Benson Zhou - Temperature Converter
+
 import tkinter as tk
 import tkinter.ttk as ttk
 
+# Window Setup
 window = tk.Tk()
 
 window.title("Temperature Converter")
 
+# Conversion Selector
 conversions = ["Fahrenheit to Celcius", "Celsius to Fahrenheit"]
 
 default = tk.StringVar()
@@ -13,16 +17,19 @@ default.set("Fahrenheit to Celcius")
 selector = tk.OptionMenu(window, default, *conversions)
 selector.pack()
 
+# Result Box
 outputText = tk.StringVar()
 
 output = ttk.Label(master=window, textvariable = outputText)
 
+# Temperature Input
 inputText = tk.StringVar()
 inputBox = ttk.Entry(master=window, textvariable = inputText)
 inputBox.pack(fill = "x")
 
 output.pack(fill = "x")
 
+# Conversion
 def calculate():
 	try:
 		a = float(inputText.get())
@@ -40,6 +47,7 @@ def calculate():
 			outputText.set("Invalid Input: Temperature below absolute zero")
 			return
 		outputText.set(str(round((a*9/5)+32)) + "˚ Fahrenheit")
+
 # Calculate button
 enter = ttk.Button(master=window, command=calculate, text="Calculate")
 enter.pack()
