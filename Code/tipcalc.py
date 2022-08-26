@@ -1,4 +1,4 @@
-# Benson ZHou - Tip Calculator
+# Benson Zhou - Tip Calculator
 import tkinter as tk
 import tkinter.ttk as ttk
 
@@ -6,8 +6,6 @@ import tkinter.ttk as ttk
 window = tk.Tk()
 
 window.title("Tip Calculator")
-style = ttk.Style(window)
-style.theme_use('aqua')
 
 # Position Elements
 masterFrame = tk.Frame(window)
@@ -26,16 +24,20 @@ peopleFrame = tk.Frame(master=entryFrame)
 peopleFrame.pack()
 
 #Store variables seperate from entries
-currentBill = 0.00
+currentBill = 0.0
 currentPercentage = 15.0
 currentPeople = 1
 
 # General function for formatting numbers
 def formatnum(num, pos):
 	global currentBill, currentPeople, currentPercentage
+	if num.startswith("-"):
+		print(pos, "can't be negative")
+		return -1
 	try:
 		a = float(num)
 	except:
+		print("Invalid input")
 		return -1
 	if pos == "bill":
 		a = round(a, 2)
