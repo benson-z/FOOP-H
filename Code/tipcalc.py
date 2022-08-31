@@ -51,7 +51,7 @@ def formatnum(num, pos):
 	return str(a)
 
 # Bill entry
-blabel = tk.Label(master=billFrame, text="Bill ($)", width=8, anchor="e")
+blabel = ttk.Label(master=billFrame, text="Bill ($)", width=8, anchor="e")
 blabel.grid(row=0, column=0)
 blabel.pack(side=tk.LEFT)
 
@@ -68,7 +68,7 @@ bill = ttk.Entry(master=billFrame, width = 10, textvariable = billText, validate
 bill.pack(side=tk.RIGHT)
 
 # Percentage entry
-plabel = tk.Label(master=percentFrame, text="Tip (%)", width=8, anchor="e")
+plabel = ttk.Label(master=percentFrame, text="Tip (%)", width=8, anchor="e")
 plabel.pack(side=tk.LEFT)
 
 percentText = tk.StringVar()
@@ -84,7 +84,7 @@ percent = ttk.Entry(master=percentFrame, width = 10, textvariable = percentText,
 percent.pack(side=tk.RIGHT)
 
 # Number of People entry
-nlabel = tk.Label(master=peopleFrame, text="# of People", width=8, anchor="e")
+nlabel = ttk.Label(master=peopleFrame, text="# of People", width=8, anchor="e")
 nlabel.pack(side=tk.LEFT)
 
 peopleText = tk.StringVar()
@@ -100,12 +100,12 @@ people = ttk.Entry(master=peopleFrame, width = 10, textvariable = peopleText, va
 people.pack(side=tk.RIGHT)
 
 # Display results
-totalLabel = tk.Label(master=resultFrame, text = "Total per person")
-total = tk.Label(master=resultFrame, text = "$0.00", anchor = "center")
+totalLabel = ttk.Label(master=resultFrame, text = "Total per person")
+total = ttk.Label(master=resultFrame, text = "$0.00", anchor = "center")
 totalLabel.pack(fill = "x")
 total.pack(fill = "x")
-tipLabel = tk.Label(master=resultFrame, text = "Total tip per person")
-tip = tk.Label(master=resultFrame, text = "$0.00", anchor = "center")
+tipLabel = ttk.Label(master=resultFrame, text = "Total tip per person")
+tip = ttk.Label(master=resultFrame, text = "$0.00", anchor = "center")
 tipLabel.pack(fill = "x")
 tip.pack(fill = "x")
 
