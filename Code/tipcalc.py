@@ -114,9 +114,11 @@ def calculate():
 	print("Total tip: $", "{:.2f}".format(currentBill*currentPercentage/100))
 	total.config(text = "$" + "{:.2f}".format((currentBill*currentPercentage/100+currentBill)/currentPeople))
 	tip.config(text = "$" + "{:.2f}".format((currentBill*currentPercentage/100)/currentPeople))
+	tip.after(500, calculate)
 
+calculate()
 # Calculate button
-enter = ttk.Button(master=window, command=calculate, text="Calculate")
-enter.pack()
+#enter = ttk.Button(master=window, command=calculate, text="Calculate")
+#enter.pack()
 
 window.mainloop()
