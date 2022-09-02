@@ -6,6 +6,7 @@ import tkinter.ttk as ttk
 window = tk.Tk()
 
 window.title("Tip Calculator")
+window.bind_all("<Button-1>", lambda event: event.widget.focus_set())
 
 # Position Elements
 masterFrame = tk.Frame(window)
