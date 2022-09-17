@@ -136,7 +136,7 @@ while True:
                 computerSelection = random.randint(0, 4)
                 stage = programState.PLAY
                 statement, result = outcomeList[selection][computerSelection]
-                resultText = fontObj.render(statement, True, black)
+                resultText = pygame.font.SysFont("freesans.ttf", 36).render(statement, True, black)
                 resultRect = resultText.get_rect()
                 resultRect.center = (300, 500)
                 if result == 1:
