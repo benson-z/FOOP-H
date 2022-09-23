@@ -1,7 +1,8 @@
 import tkinter as tk
 from decimal import Decimal
-root = tk.Tk()
 
+# Window setup
+root = tk.Tk()
 frame = tk.Frame(root)
 root.title("Calculator")
 
@@ -13,6 +14,8 @@ mul= False
 
 secondnum = '0'
 state = 0
+
+# Number input
 def nbutton(number, pi = False):
 	global s_number
 	global firstnum
@@ -36,6 +39,7 @@ def nbutton(number, pi = False):
 	screen.delete('1.0', tk.END)
 	screen.insert(tk.INSERT, s_number)
 
+# Operator pressed
 def operate(a):
 	global s_number
 	global firstnum
@@ -69,13 +73,15 @@ def operate(a):
 	#reset screen
 	screen.delete('1.0', tk.END)
 	screen.insert(tk.INSERT, s_number)
-	
+
+# Changes current number to negative and back
 def negative():
 	global s_number
 	s_number = str(Decimal(s_number)*-1)
 	screen.delete('1.0', tk.END)
 	screen.insert(tk.INSERT, s_number)
 
+# CE function: resets all variables to initial
 def clear_text ():
 	global s_number
 	global firstnum
@@ -90,8 +96,8 @@ def clear_text ():
 	screen.delete('1.0', tk.END)
 	screen.insert(tk.INSERT, s_number)
 
+# Key press
 def key_input(event):
-#	print(event)
 	if (event.char in "+-*/=") :
 		operate(event.char)
 	elif event.char == '\r':
@@ -99,7 +105,7 @@ def key_input(event):
 	else :
 		nbutton(event.char)
 	
-	
+# Create on screen elements
 screen = tk.Text(root, height = 4, font = ('', 20), width = 35)
 screen.insert(tk.INSERT, s_number)
 one = tk.Button(root, text = '1', height = 3, font = ('', 20), command = lambda: nbutton('1') )
@@ -122,6 +128,7 @@ sign = tk.Button(root, text= '+/-', height = 3, font = ('', 18), command = negat
 ce = tk.Button(root, text= 'CE', height = 3, font = ('', 18), command = clear_text)
 pi = tk.Button(root, text= 'π', height = 3, font = ('', 18), command = lambda: nbutton('3.14159265358979323846264338327', True))
 
+# Window arrangement
 screen.grid(row=0, sticky = 'nsew', columnspan = 5)
 
 one.grid(row = 1, sticky = 'nsew')
@@ -144,6 +151,7 @@ sign.grid(row = 4, column = 0, sticky = 'nsew')
 ce.grid(row = 2, column = 4, sticky = 'nsew')
 pi.grid(row = 1, column = 4, sticky = 'nsew')
 
+# Keyboard input (bind keyboard keys to calculator functions)
 root.bind("0", key_input)
 root.bind("1", key_input)
 root.bind("2", key_input)
@@ -162,7 +170,7 @@ root.bind("=", key_input)
 
 root.bind("<Return>", key_input)
 
-
+# Make window freely resizable
 root.rowconfigure(0,weight = 1)
 root.rowconfigure(1,weight = 1)
 root.rowconfigure(2,weight = 1)
