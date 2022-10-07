@@ -1,26 +1,62 @@
 import tkinter as tk
-import turtle
 import tkinter.ttk as ttk
+import turtle
 
-screen = turtle.Screen()
-pen = turtle.RawTurtle(screen)
-
-def pinwheel(size, shape):
+def pinwheel(size, sides):
+    global pen
+    print("Pinwheel")
     pass
 
-def polygon(size, shape):
+def polygon(size, sides):
+    global pen
+    print("Polygon")
     pass
 
-def asterisk(size, shape):
+def asterisk(size, sides):
+    global pen
+    print("Asterisk")
     pass
 
-class Selector(tk.Frame):
+class Shapes(tk.Tk):
+    selection = None
+    canvas = None
+    options = ["Polygon", "Polygon", "Asterisk", "Pinwheel"]
+    size = None
+    sides = None
     def __init__(self):
         super().__init__()
-    def update(self):
-        pass #draws the selected shape
+        self.geometry("600x740")
+        self.resizable(False, False)
 
-canvas = screen.getcanvas()
-frame = Selector(canvas.master)
-canvas.create_window(0, 500, window=frame)
-turtle.Screen().exitonclick()
+        self.canvas = tk.Canvas(self, width=600, height=600)
+        self.canvas.pack()
+
+        self.selection = tk.StringVar()
+        self.size = tk.StringVar()
+        self.sides = tk.StringVar()
+
+        self.selection.set("Polygon")
+        self.size.set("1")
+        self.sides.set("3")
+
+        ttk.OptionMenu(self, self.selection, *self.options).pack()
+        ttk.Button(self, text="Draw", command=self.draw).pack()
+        ttk.Entry(self, textvariable=self.size).pack()
+        ttk.Entry(self, textvariable=self.sides).pack()
+    def draw(self):
+        shape = self.selection.get()
+        if shape == "Polygon":
+            polygon(int(self.size.get()), int(self.sides.get()))
+        elif shape == "Asterisk":
+            asterisk(int(self.size.get()), int(self.sides.get()))
+        elif shape == "Pinwheel":
+            pinwheel(int(self.size.get()), int(self.sides.get()))
+    def getCanvas(self):
+        return self.canvas
+    def checkNum(self):
+        return True
+
+app = Shapes()
+pen = turtle.RawTurtle(app.getCanvas())
+turtle.exitonclick()
+app.mainloop()
