@@ -1,0 +1,1 @@
+[print(x) for x in range(0, int(input("Input a number: "))*2, 2)]
