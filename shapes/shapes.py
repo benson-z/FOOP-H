@@ -6,7 +6,17 @@ import math
 def pinwheel(size, sides):
     global pen
     pen.clear()
-    print("Pinwheel")
+    pen.reset()
+    pen.penup()
+    pen.backward(size/6)
+    pen.right(90)
+    pen.forward(1/(math.tan(math.pi/sides))*size/6)
+    pen.left(90)
+    pen.pendown()
+    for a in range(sides):
+        pen.forward(size)
+        pen.backward(2*size/3)
+        pen.left(360/sides)
     pass
 
 def asterisk(size, sides):
@@ -25,18 +35,13 @@ def polygon(size, sides):
     pen.reset()
     pen.left(90)
     pen.penup()
+    pen.forward(size)
+    pen.left(90)
+    pen.pendown()
+    pen.back(math.tan(math.pi/sides)*size)
     for a in range(sides):
-        pen.forward(size)
-        pen.left(90)
-        pen.pendown()
-        pen.forward(math.tan(math.pi/sides)*size)
-        pen.backward(2*math.tan(math.pi/sides)*size)
-        pen.forward(math.tan(math.pi/sides)*size)
-        pen.left(90)
-        pen.penup()
-        pen.forward(size)
-        pen.right(180)
-        pen.right(360/sides)
+        pen.forward(math.tan(math.pi/sides)*size*2)
+        pen.left(360/sides)
 
 class Shapes(tk.Tk):
     selection = None
@@ -81,5 +86,6 @@ class Shapes(tk.Tk):
 
 app = Shapes()
 pen = turtle.RawTurtle(app.getCanvas())
+pen.speed(0)
 turtle.exitonclick()
 app.mainloop()
