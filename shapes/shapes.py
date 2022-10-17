@@ -49,27 +49,39 @@ class Shapes(tk.Tk):
     options = ["Polygon", "Polygon", "Asterisk", "Pinwheel"]
     size = None
     sides = None
+    frame1 = None
+    drawButton = None
     def __init__(self):
         super().__init__()
-        self.geometry("600x740")
+        self.geometry("740x600")
+        self.title("Draw Shapes")
         self.resizable(False, False)
+        
+        frame1 = tk.Frame(self)
 
         self.canvas = tk.Canvas(self, width=600, height=600)
-        self.canvas.pack()
+        self.canvas.pack(side=tk.LEFT)
 
         self.selection = tk.StringVar()
         self.size = tk.StringVar()
         self.sides = tk.StringVar()
 
         self.selection.set("Polygon")
-        self.size.set("1")
+        self.size.set("100")
         self.sides.set("3")
 
-        ttk.OptionMenu(self, self.selection, *self.options).pack()
-        ttk.Button(self, text="Draw", command=self.draw).pack()
-        ttk.Entry(self, textvariable=self.size, validate="focusout", validatecommand=self.checkSize).pack()
-        ttk.Entry(self, textvariable=self.sides, validate="focusout", validatecommand=self.checkSides).pack()
+        frame1.pack()
+        ttk.Label(frame1, text="Options", font=("", 20)).pack(pady=20)
+        ttk.Label(frame1, text="Shape").pack()
+        ttk.OptionMenu(frame1, self.selection, *self.options).pack()
+        ttk.Label(frame1, text="Shape Size").pack(pady=(15, 0))
+        ttk.Entry(frame1, textvariable=self.size, validate="focusout", validatecommand=self.checkSize).pack(padx=20)
+        ttk.Label(frame1, text="Shape Sides").pack(pady=(5, 0))
+        ttk.Entry(frame1, textvariable=self.sides, validate="focusout", validatecommand=self.checkSides).pack(padx=20)
+        self.drawButton = ttk.Button(frame1, text="Draw", command=self.draw)
+        self.drawButton.pack(pady=(330, 0))
     def draw(self):
+        self.drawButton.config(state = tk.DISABLED)
         shape = self.selection.get()
         if shape == "Polygon":
             polygon(int(self.size.get()), int(self.sides.get()))
@@ -77,15 +89,28 @@ class Shapes(tk.Tk):
             asterisk(int(self.size.get()), int(self.sides.get()))
         elif shape == "Pinwheel":
             pinwheel(int(self.size.get()), int(self.sides.get()))
+        self.drawButton.config(state = tk.NORMAL)
     def getCanvas(self):
         return self.canvas
     def checkSize(self):
-        return True
+        try:
+            if int(self.size.get()) > 0:
+                return True
+            raise Exception("Has to be a positive number")
+        except:
+            self.size.set("100")
+            return False
     def checkSides(self):
-        return True
+        try:
+            if int(self.size.get()) > 0:
+                return True
+            raise Exception("Has to be a positive number")
+        except:
+            self.sides.set("3")
+            return False
 
 app = Shapes()
 pen = turtle.RawTurtle(app.getCanvas())
 pen.speed(0)
-turtle.exitonclick()
+turtle.done()
 app.mainloop()
