@@ -3,6 +3,7 @@ import tkinter.ttk as ttk
 import turtle
 import math
 
+# Draw pinwheel
 def pinwheel(size, sides):
     global pen
     pen.clear()
@@ -16,9 +17,10 @@ def pinwheel(size, sides):
     for a in range(sides):
         pen.forward(size)
         pen.backward(2*size/3)
-        pen.left(360/sides)
+        pen.left(360/sides) 
     pass
 
+# Draw Asterisk
 def asterisk(size, sides):
     global pen
     pen.clear()
@@ -29,6 +31,7 @@ def asterisk(size, sides):
         pen.backward(size)
         pen.right(360/sides)
 
+# Draw Polycon
 def polygon(size, sides):
     global pen
     pen.clear()
@@ -43,14 +46,18 @@ def polygon(size, sides):
         pen.forward(math.tan(math.pi/sides)*size*2)
         pen.left(360/sides)
 
+# Main Tk Window
 class Shapes(tk.Tk):
+    # Initialize variables
     selection = None
     canvas = None
     options = ["Polygon", "Polygon", "Asterisk", "Pinwheel"]
     size = None
     sides = None
+    width = None
     frame1 = None
     drawButton = None
+    # Window Layout
     def __init__(self):
         super().__init__()
         self.geometry("740x600")
@@ -65,10 +72,12 @@ class Shapes(tk.Tk):
         self.selection = tk.StringVar()
         self.size = tk.StringVar()
         self.sides = tk.StringVar()
+        self.width = tk.StringVar()
 
         self.selection.set("Polygon")
         self.size.set("100")
         self.sides.set("3")
+        self.width.set("1")
 
         frame1.pack()
         ttk.Label(frame1, text="Options", font=("", 20)).pack(pady=20)
@@ -80,8 +89,10 @@ class Shapes(tk.Tk):
         ttk.Entry(frame1, textvariable=self.sides, validate="focusout", validatecommand=self.checkSides).pack(padx=20)
         self.drawButton = ttk.Button(frame1, text="Draw", command=self.draw)
         self.drawButton.pack(pady=(330, 0))
+    # Select Draw Function
     def draw(self):
         self.drawButton.config(state = tk.DISABLED)
+        pen.width(int(self.width.get()))
         shape = self.selection.get()
         if shape == "Polygon":
             polygon(int(self.size.get()), int(self.sides.get()))
@@ -90,8 +101,10 @@ class Shapes(tk.Tk):
         elif shape == "Pinwheel":
             pinwheel(int(self.size.get()), int(self.sides.get()))
         self.drawButton.config(state = tk.NORMAL)
+    # Returns the Tkinter canvas for initializing turtle
     def getCanvas(self):
         return self.canvas
+    # Validate size is an allowed value
     def checkSize(self):
         try:
             if int(self.size.get()) > 0:
@@ -100,6 +113,7 @@ class Shapes(tk.Tk):
         except:
             self.size.set("100")
             return False
+    # Validate sides is an allowed value
     def checkSides(self):
         try:
             if int(self.size.get()) > 0:
@@ -110,6 +124,7 @@ class Shapes(tk.Tk):
             return False
 
 app = Shapes()
+# Initialize a turtle instance to the tkinter canvas
 pen = turtle.RawTurtle(app.getCanvas())
 pen.speed(0)
 turtle.done()
