@@ -20,19 +20,9 @@ def drawHangman(remaining):
     if remaining > 0:
         pygame.draw.circle(gameDisplay, black, head[0], head[1], head[2])
 
-def drawKeys():
-    global keys, keySpacing, keyCoordinates
-    for row in range(len(keys)):
-        x, y = keyCoordinates[row]
-        for key in keys[row]:
-            keyString = pygame.font.Font("RobotoMono-VariableFont_wght.ttf", 25).render(key, True, black)
-            keyRect = keyString.get_rect()
-            keyRect.center = (x, y)
-            gameDisplay.blit(keyString, keyRect)
-            x += keySpacing
-
 def reset():
-    global displayString, displayText, displayRect, mysteryString
+    global displayString, displayText, displayRect, mysteryString, remaining
+    remaining = 6
     mysteryString = chooser.choose()
     displayString = "".join(["_" if a != " " else " " for a in mysteryString])
     displayText = pygame.font.Font("RobotoMono-VariableFont_wght.ttf", 72).render(displayString, True, black)
@@ -42,6 +32,8 @@ def reset():
 def guess(letter):
     global displayString, displayRect, mysteryString, currentState, displayText, remaining
     newString = ""
+    if letter == "":
+        return
     if letter in displayString:
         print("Letter already used")
         return
@@ -66,6 +58,8 @@ def getKey(coords):
     x, y = coords
     yIndex = 0
     minimum = 1000000
+    if y < 450: 
+        return ""
     for a in range(len(keyCoordinates)):
         b, c = keyCoordinates[a]
         if abs(y-c) < minimum:
@@ -73,25 +67,32 @@ def getKey(coords):
             minimum = abs(y-c)
     d, e = keyCoordinates[yIndex]
     xIndex = (x-d+int(keySpacing/2))//keySpacing
+    if xIndex >= len(keys[yIndex]) or xIndex < 0:
+        return ""
     return keys[yIndex][xIndex]
 
-reset()
+reset() 
 
 hello = 0
 
 # Main Program
 while True:
     if currentState == gameState.GUESS:
-        gameDisplay.fill(white)
+        gameDisplay.blit(guessImg, (0, 0))
         drawHangman(remaining)
         gameDisplay.blit(displayText, displayRect)
-        drawKeys()
     if currentState == gameState.LOSE:
-        gameDisplay.fill(red)
+        gameDisplay.blit(loseImg, (0, 0))
+        displayString = mysteryString.title()
+        displayText = pygame.font.Font("RobotoMono-VariableFont_wght.ttf", 60).render(displayString, True, white)
+        displayRect = displayText.get_rect()
+        displayRect.center = (640, 500)
+        gameDisplay.blit(displayText, displayRect)
     if currentState == gameState.WIN:
-        gameDisplay.fill(green)
+        gameDisplay.blit(winImg, (0, 0))
     if currentState == gameState.START:
-        gameDisplay.fill(red)
+        gameDisplay.blit(menuImg, (0, 0))
+        drawHangman(6)
     pygame.display.update()
     clock.tick(60)
     for event in pygame.event.get():

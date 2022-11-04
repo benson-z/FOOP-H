@@ -28,6 +28,11 @@ hangmanComponents = [
     [(250, 320), (300, 370), 8, black]
 ]
 
+guessImg = pygame.image.load("images/guess.png")
+menuImg = pygame.image.load("images/menu.png")
+winImg = pygame.image.load("images/win.png")
+loseImg = pygame.image.load("images/lose.png")
+
 keys = [
     ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"], 
     ["A", "S", "D", "F", "G", "H", "J", "K", "L"], 
