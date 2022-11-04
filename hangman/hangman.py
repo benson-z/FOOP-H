@@ -21,8 +21,9 @@ def drawHangman(remaining):
         pygame.draw.circle(gameDisplay, black, head[0], head[1], head[2])
 
 def reset():
-    global displayString, displayText, displayRect, mysteryString, remaining
+    global displayString, displayText, displayRect, mysteryString, remaining, usedLetters
     remaining = 6
+    usedLetters = []
     mysteryString = chooser.choose()
     displayString = "".join(["_" if a != " " else " " for a in mysteryString])
     displayText = pygame.font.Font("RobotoMono-VariableFont_wght.ttf", 72).render(displayString, True, black)
@@ -34,9 +35,10 @@ def guess(letter):
     newString = ""
     if letter == "":
         return
-    if letter in displayString:
+    if letter in usedLetters:
         print("Letter already used")
         return
+    usedLetters.append(letter)
     for a in range(len(mysteryString)):
         if mysteryString[a] == letter:
             newString += letter
@@ -52,6 +54,13 @@ def guess(letter):
     displayRect.center = wordcenter
     if displayString == mysteryString:
         currentState = gameState.WIN
+
+def drawKeys():
+    for y in range(len(keys)):
+        for x in range(len(keys[y])):
+            if keys[y][x] in usedLetters:
+                a, b = keyCoordinates[y]
+                pygame.draw.line(gameDisplay, red, (a-20 + x * keySpacing, b-15), (a+20 + x * keySpacing, b+15), width=2)
 
 def getKey(coords):
     global keyCoordinates, keys, keySpacing
@@ -81,6 +90,7 @@ while True:
         gameDisplay.blit(guessImg, (0, 0))
         drawHangman(remaining)
         gameDisplay.blit(displayText, displayRect)
+        drawKeys()
     if currentState == gameState.LOSE:
         gameDisplay.blit(loseImg, (0, 0))
         displayString = mysteryString.title()

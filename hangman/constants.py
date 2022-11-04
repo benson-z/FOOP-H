@@ -1,5 +1,4 @@
 import pygame
-import math
 from enum import Enum
 
 resolution = (1280, 720)
@@ -10,9 +9,10 @@ red = (255, 0, 0)
 green = (0, 255, 0)
 brown = (181, 101, 29)
 
-wordcenter = (800, 300)
+wordcenter = (800, 280)
 
 remaining = 6 # Remaining Guesses
+usedLetters = []
 
 head = [(250, 185), 35, 5]
 hangmanComponents = [
