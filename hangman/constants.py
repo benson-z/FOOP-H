@@ -31,7 +31,8 @@ hangmanComponents = [
     [(250, 320), (300, 370), 8, black]
 ]
 
-# Background images (I made these)
+# Load images (I made these)
+appImg = pygame.image.load("images/icon.png")
 guessImg = pygame.image.load("images/guess.png")
 menuImg = pygame.image.load("images/menu.png")
 winImg = pygame.image.load("images/win.png")

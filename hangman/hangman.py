@@ -8,6 +8,7 @@ import chooser
 pygame.init()
 gameDisplay = pygame.display.set_mode(resolution)
 pygame.display.set_caption("Hangman")
+pygame.display.set_icon(appImg)
 clock = pygame.time.Clock()
 
 # Draw hangman on screen
