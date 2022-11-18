@@ -19,7 +19,8 @@ class Analyzer(tk.Tk):
 
         self.disp = tk.Text(self.outputFrame, state=tk.DISABLED, highlightthickness=0, width=40, height=20)
         self.disp.pack()
-        ttk.Button(self.optionFrame, text="Open file", command=self.openFile).pack(padx=5)
+        ttk.Button(self.optionFrame, text="Open file", command=self.openFile).pack(padx=10, side=tk.LEFT)
+        ttk.Button(self.optionFrame, text="Quit", command=quit).pack(padx=10, side=tk.RIGHT)
     def index(self, word):
         # match a-z,A-Z, ', -
         # Deletes all punctuation and numbers

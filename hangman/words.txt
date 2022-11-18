@@ -1921,7 +1921,6 @@ sad
 paw
 space
 bullet
-skribbl.io
 shirt
 cow
 worm
@@ -1956,7 +1955,6 @@ nickel
 party
 hurt
 Segway
-Mr. Bean
 banker
 cartoon
 double
@@ -2262,7 +2260,6 @@ ant
 lock
 hanger
 cap
-Mr. Meeseeks
 comedy
 coat
 tourist
