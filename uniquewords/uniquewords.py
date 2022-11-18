@@ -38,7 +38,7 @@ class Analyzer(tk.Tk):
     def updateDisp(self):
         outputText = ""
         word_count = 0
-        for word in self.words:
+        for word in sorted(self.words.keys()):
             outputText = outputText + word + ": " + str(self.words[word]) + "\n"
             word_count += 1
         self.disp.config(state=tk.NORMAL)
