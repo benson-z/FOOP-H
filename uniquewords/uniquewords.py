@@ -43,7 +43,7 @@ class Analyzer(tk.Tk):
             word_count += 1
         self.disp.config(state=tk.NORMAL)
         self.disp.delete("1.0","end")
-        self.disp.insert("end", "Total unique words: " + str(word_count))
+        self.disp.insert("end", "Total unique words: " + str(word_count) + "\n")
         self.disp.insert("end", outputText)
         self.disp.config(state=tk.DISABLED)
 
