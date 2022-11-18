@@ -26,7 +26,7 @@ def drawHangman(remaining):
 def reset():
     global displayString, displayText, displayRect, mysteryString, remaining, usedLetters
     remaining = 6
-    usedLetters = []
+    usedLetters = []  
     mysteryString = chooser.choose()
     displayString = "".join(["_" if a != " " else " " for a in mysteryString])
     displayText = pygame.font.Font("RobotoMono-VariableFont_wght.ttf", 72).render(displayString, True, black)
@@ -105,7 +105,7 @@ while True:
         gameDisplay.blit(loseImg, (0, 0))
         # Display the word
         displayString = mysteryString.title()
-        displayText = pygame.font.Font("RobotoMono-VariableFont_wght.ttf", 60).render(displayString, True, white)
+        displayText = pygame.font.Font("american-typewriter-bold.ttf", 72).render(displayString, True, white)
         displayRect = displayText.get_rect()
         displayRect.center = (640, 500)
         gameDisplay.blit(displayText, displayRect)
