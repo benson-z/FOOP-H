@@ -1,7 +1,61 @@
 {
     "people": {
-        "adam": {
-            "birthday": "11092000"
+        "adam crosby": {
+            "birthday": "08161951"
+        },
+        "alisha thornton": {
+            "birthday": "11081947"
+        },
+        "carter mckee": {
+            "birthday": "06061961"
+        },
+        "clara sullivan": {
+            "birthday": "12301945"
+        },
+        "constance fisher": {
+            "birthday": "02041951"
+        },
+        "devon singleton": {
+            "birthday": "12151933"
+        },
+        "dorothy ellis": {
+            "birthday": "10281935"
+        },
+        "georgina russo": {
+            "birthday": "04291974"
+        },
+        "ian haley": {
+            "birthday": "06071950"
+        },
+        "kurt kane": {
+            "birthday": "11141980"
+        },
+        "liberty conner": {
+            "birthday": "05131929"
+        },
+        "louis kim": {
+            "birthday": "02131918"
+        },
+        "maison chavez": {
+            "birthday": "05231945"
+        },
+        "maryam bonner": {
+            "birthday": "10241962"
+        },
+        "mohamed cox": {
+            "birthday": "11071981"
+        },
+        "ricky erickson": {
+            "birthday": "10211912"
+        },
+        "shakira washington": {
+            "birthday": "07301956"
+        },
+        "xander donaldson": {
+            "birthday": "01091915"
+        },
+        "zaynah romero": {
+            "birthday": "12291979"
         }
     }
 }

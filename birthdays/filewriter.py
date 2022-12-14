@@ -7,7 +7,7 @@ def importData(fileName):
         f.close()
         return data
     except:
-        return {}
+        return {"people": {}}
 
 def saveData(fileName, data):
     f = open(fileName, "w")

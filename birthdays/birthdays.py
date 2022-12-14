@@ -1,6 +1,7 @@
 import tkinter as tk
 import tkinter.ttk as ttk
 import filewriter
+import datetime
 
 fileName = "data.json"
 
@@ -17,6 +18,7 @@ class Birthdays(tk.Tk):
         self.data = filewriter.importData(fileName)
         self.name = tk.StringVar()
         self.birthday = tk.StringVar()
+        self.age = tk.StringVar()
         self.searchterm = tk.StringVar()
         self.searchterm.set("")
         self.lastsearch = ""
@@ -45,8 +47,10 @@ class Birthdays(tk.Tk):
         self.switchstate.pack(fill="x", padx=5, pady=7)
 
         # Person Info
-        ttk.Label(self.infoframe, textvariable=self.name, justify="left", font=("", 40)).pack(anchor="w", padx=20, pady=(20, 10))
+        ttk.Label(self.infoframe, textvariable=self.name, justify="left", font=("", 40)).pack(anchor="w", padx=20, pady=10)
         ttk.Label(self.infoframe, textvariable=self.birthday, justify="left", font=("", 20)).pack(anchor="w", padx=20, pady=10)
+        ttk.Label(self.infoframe, textvariable=self.age, justify="left", font=("", 20)).pack(anchor="w", padx=20)
+        # self.editbutton = ttk.Button(self.infoframe, text="Edit Contact", command=self.edit)
         self.delbutton = ttk.Button(self.infoframe, text="Delete Contact", command=self.delete)
 
         # Start update function
@@ -63,8 +67,9 @@ class Birthdays(tk.Tk):
             selected = self.selector.item(self.selector.focus())["values"][0]
             self.name.set(selected.title())
             self.birthday.set("Birthday: " + self.formatDate(self.data["people"][selected.lower()]["birthday"]))
+            self.age.set("Age:" + str(self.get_age(self.data["people"][selected.lower()]["birthday"])))
             if not self.delbutton.winfo_ismapped():
-                self.delbutton.pack(padx = 40, pady = (60, 0), anchor="w")
+                self.delbutton.pack(side=tk.BOTTOM, padx = 10, pady = (7), fill="x")
         except:
             pass
         finally:
@@ -82,14 +87,14 @@ class Birthdays(tk.Tk):
             self.newframe.pack(side=tk.RIGHT, fill="both", anchor="nw", expand=True)
             ttk.Label(self.newframe, text="Add Contact", font=("", 40)).pack(anchor="w", padx=20, pady=10)
             ttk.Label(self.newframe, text="Name", font=("", 20)).pack(anchor="w", padx=20, pady=(10, 5))
-            name = ttk.Entry(self.newframe)
+            name = ttk.Entry(self.newframe, font=("", 15))
             name.pack(anchor="w", padx=20)
             ttk.Label(self.newframe, text="Birthday (mmddyyyy)", font=("", 20)).pack(anchor="w", padx=20, pady=(10, 5))
-            birthday = ttk.Entry(self.newframe)
+            birthday = ttk.Entry(self.newframe, font=("", 15))
             birthday.pack(anchor="w", padx=20)
             alerts = ttk.Label(self.newframe, foreground="red")
             alerts.pack(anchor="w", padx=20, pady=20)
-            ttk.Button(self.newframe, text="Confirm", command=lambda: self.confirm(name, birthday, alerts)).pack(side=tk.BOTTOM, padx = 40, pady = (60, 0))
+            ttk.Button(self.newframe, text="Confirm", command=lambda: self.confirm(name, birthday, alerts)).pack(side=tk.BOTTOM, padx = 10, pady = (7), fill="x")
         elif self.state == "a":
             self.state = "n"
             self.newframe.pack_forget()
@@ -114,8 +119,18 @@ class Birthdays(tk.Tk):
         self.lastsearch = ""
         filewriter.saveData(fileName, self.data)
         self.lastsearch = "⇉"
+    def todatetime(self, date):
+        return datetime.datetime(int(date[4:]), int(date[:2]), int(date[2:4]))
     def formatDate(self, unformatted):
-        return "/".join([unformatted[:2], unformatted[2:4], unformatted[4:]])
+        return self.todatetime(unformatted).strftime("%x")
+    def get_age(self, birthday):
+        birthdate = self.todatetime(birthday)
+        today = datetime.date.today()
+        years = today.year - birthdate.year
+        if birthdate.month > today.month or (birthdate.month == today.month and birthdate.day > today.day):
+            years -= 1
+        print(years)
+        return years
 
 app = Birthdays()
 app.mainloop()
